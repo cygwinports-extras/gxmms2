@@ -1,0 +1,66 @@
+gxmms2
+------------------------------------------
+gxmms2 is a GTK2 based XMMS2 client, written in C. Its main window is 
+small and simple. It includes a playlist editor and a file details 
+dialog. You can use gxmms2 to add files to the XMMS2 media library and 
+also manage your playlists.
+
+Runtime requirements:
+  cygwin-1.7.0-51
+  libgcc1-4.3.2-2
+  libgdk_pixbuf2.0_0-2.16.2-1
+  libglib2.0_0-2.20.3-1
+  libgtk2.0_0-2.16.2-1
+  libpango1.0_0-1.24.2-1
+  libX11_6-1.2-10
+  libxmmsclient5-0.6-1
+  libxmmsclient-glib1-0.6-1
+
+Build requirements:
+(besides corresponding -devel packages)
+  binutils-2.19.51-1
+  cygport-0.9.8.1-1
+  gcc4-core-4.3.2-2
+  make-3.81-2
+  pkg-config-0.23b-10
+
+Canonical website:
+  http://wejp.k.vu/projects/xmms2/gxmms2
+
+Canonical download:
+  http://git.xmms.se/
+
+-------------------------------------------
+
+Build instructions:
+  unpack gxmms2-0.7.1-X-src.tar.bz2
+    if you use setup to install this src package, it will be
+	 unpacked under /usr/src automatically
+  cd /usr/src
+  cygport ./gxmms2-0.7.1-X.cygport all
+
+This will create:
+  /usr/src/gxmms2-0.7.1-X-src.tar.bz2
+  /usr/src/gxmms2-0.7.1-X.tar.bz2
+
+-------------------------------------------
+
+Files included in the binary package:
+
+  /usr/bin/gxmms2.exe
+  /usr/share/applications/gxmms2.desktop
+  /usr/share/doc/gxmms2/AUTHORS
+  /usr/share/doc/gxmms2/COPYING
+  /usr/share/doc/gxmms2/README
+  /usr/share/pixmaps/gxmms2.xpm
+
+------------------
+
+Port Notes:
+
+----- version 0.7.1-1 -----
+Initial release for Cygwin 1.7.
+
+
+Cygwin port maintained by:
+http://sourceware.org/cygwinports/
