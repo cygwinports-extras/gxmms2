@@ -1,0 +1,38 @@
+Description: Compatibility to xmms2 0.7DrNo
+Author: Benjamin Drung <bdrung@ubuntu.com>
+Bug: http://bugs.xmms2.xmms.se/view.php?id=2304
+
+--- gxmms2-0.7.0+git20090608.orig/gxmms2src/gxmms2.c
++++ gxmms2-0.7.0+git20090608/gxmms2src/gxmms2.c
+@@ -89,7 +89,8 @@ static gboolean cb_scale_release_event(G
+ 
+ 	if (xmms2ctrl_get_error() != ERROR_CONNECTION) {
+ 		res = xmmsc_playback_seek_ms(connection, 
+-	          	(guint)gtk_range_get_value(GTK_RANGE(widget)));
++		              (guint)gtk_range_get_value(GTK_RANGE(widget)),
++		              XMMS_PLAYBACK_SEEK_SET);
+ 		xmmsc_result_unref(res);
+ 	}
+ 	update_scale = TRUE;
+--- gxmms2-0.7.0+git20090608.orig/gkrellxmms2/gkrellxmms2.c
++++ gxmms2-0.7.0+git20090608/gkrellxmms2/gkrellxmms2.c
+@@ -178,7 +178,7 @@ static void cb_panel_release_event(GtkWi
+ 		if (xmms2ctrl_get_error() != ERROR_CONNECTION &&
+ 		    trackinfo_get_playtime(&track) > seek_ms && event->y < yoffset &&
+ 		    seek_in_progress) {
+-			res = xmmsc_playback_seek_ms(connection, seek_ms);
++			res = xmmsc_playback_seek_ms(connection, seek_ms, XMMS_PLAYBACK_SEEK_SET);
+ 			xmmsc_result_unref(res);
+ 		}
+ 		seek_in_progress = FALSE;
+--- gxmms2-0.7.0+git20090608.orig/gmedialib/gmladdfiles.c
++++ gxmms2-0.7.0+git20090608/gmedialib/gmladdfiles.c
+@@ -76,7 +76,7 @@ static void cb_add_files(GtkWidget *widg
+ 			snprintf(url, strlen(fname) + 8, "file://%s", fname);
+ 
+ 			if (g_file_test((fname), G_FILE_TEST_IS_DIR)) { /* directory */
+-				res = xmmsc_medialib_path_import(connection, url);
++				res = xmmsc_medialib_import_path(connection, url);
+ 			} else { /* file */
+ 				if (memcmp(url+(strlen(url)-4), ".pls", 4) == 0 ||
+ 				    memcmp(url+(strlen(url)-4), ".m3u", 4) == 0) {

@@ -1,5 +1,5 @@
 category: Audio
-requires: libgcc1 libgdk_pixbuf2.0_0 libglib2.0_0 libgtk2.0_0 libpango1.0_0 libX11_6 libxmmsclient5 libxmmsclient-glib1
+requires: libgcc1 libgdk_pixbuf2.0_0 libglib2.0_0 libgtk2.0_0 libpango1.0_0 libX11_6 libxmmsclient6 libxmmsclient-glib1
 sdesc: "Simple GTK+ XMMS2 client"
 ldesc: "gxmms2 is a GTK2 based XMMS2 client, written in C. Its main 
 window is small and simple. It includes a playlist editor and a file 

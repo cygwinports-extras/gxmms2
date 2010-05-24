@@ -5,6 +5,11 @@ DESCRIPTION="Simple GTK+ XMMS2 client"
 HOMEPAGE="http://wejp.k.vu/projects/xmms2/gxmms2"
 #SRC_URI="http://wejp.k.vu/wp-content/uploads/2009/07/${P}.tar.gz"
 
+PATCH_URI="
+	0.7.1-volume-control.patch
+	0.7.1-xmms2-compat07.patch
+"
+
 src_compile() {
 	lndirs
 	cd ${B}
@@ -14,7 +19,6 @@ src_compile() {
 src_install() {
 	cd ${B}
 	dobin gxmms2.exe
-	newicon gxmms2src/gxmms2_mini.xpm gxmms2.xpm
-	make_desktop_entry gxmms2 gxmms2 gxmms2 "AudioVideo;Audio;Player"
+	make_desktop_entry gxmms2 Gxmms2 xmms2 "AudioVideo;Audio;Player"
 }
 

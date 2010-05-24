@@ -1,0 +1,61 @@
+Description: Do not assume that the volume control has a left channel (fixes
+ muting of playback on launch).
+Author: Benjamin Drung <bdrung@ubuntu.com>
+Bug: http://bugs.xmms2.xmms.se/view.php?id=1883
+Bug-Ubuntu: https://bug.launchpad.net/bugs/292822
+
+diff --git a/gxmms2src/gxmms2.c b/gxmms2src/gxmms2.c
+index a257fc1..b60a789 100644
+--- a/gxmms2src/gxmms2.c
++++ b/gxmms2src/gxmms2.c
+@@ -108,25 +108,41 @@ static void change_volume(gint volume_change, gint initial_volume)
+ 	xmms2ctrl_volume_set(connection, volume);
+ }
+ 
+-static int bc_handle_volume_change(xmmsv_t *val, void *userdata)
++static void bc_handle_volume_change_channel(const char *key,
++                                            xmmsv_t *value,
++                                            void *user_data)
+ {
+ 	gint32  volume;
+ 	gchar   buf[64];
+ 	
+-	xmmsv_dict_entry_get_int(val, "left", &volume);
+-	wejpvolume_set_volume(WEJPVOLUME(wv), volume);
+-	snprintf(buf, 63, "Volume: %d %%", volume);
+-	wejpscroller_shortmessage_show(WEJPSCROLLER(scroller), buf, 50);
++	if(xmmsv_get_type(value) == XMMSV_TYPE_INT32) {
++		volume = (gint32)(size_t)value;
++		wejpvolume_set_volume(WEJPVOLUME(wv), volume);
++		snprintf(buf, 63, "Volume: %d %%", volume);
++		wejpscroller_shortmessage_show(WEJPSCROLLER(scroller), buf, 50);
++	}
++}
++
++static int bc_handle_volume_change(xmmsv_t *val, void *userdata)
++{
++	xmmsv_dict_foreach(val, bc_handle_volume_change_channel, NULL);
+ 	return FALSE;
+ }
+ 
+-static int n_volume_init(xmmsv_t *val, void *userdata)
++static void n_volume_init_channel(const char *key, xmmsv_t *value, void *user_data)
+ {
+ 	gint32 volume;
+ 	
+-	xmmsv_dict_entry_get_int(val, "left", &volume);
+-	wejpvolume_set_volume(WEJPVOLUME(wv), volume);
+-	change_volume(0, volume);
++	if(xmmsv_get_type(value) == XMMSV_TYPE_INT32) {
++		volume = (gint32)(size_t)value;
++		wejpvolume_set_volume(WEJPVOLUME(wv), volume);
++		change_volume(0, volume);
++	}
++}
++
++static int n_volume_init(xmmsv_t *val, void *userdata)
++{
++	xmmsv_dict_foreach(val, n_volume_init_channel, NULL);
+ 	return FALSE;
+ }
+ 
