@@ -5,10 +5,7 @@ DESCRIPTION="Simple GTK+ XMMS2 client"
 HOMEPAGE="http://wejp.k.vu/projects/xmms2/gxmms2"
 #SRC_URI="http://wejp.k.vu/wp-content/uploads/2009/07/${P}.tar.gz"
 
-PATCH_URI="
-	0.7.1-volume-control.patch
-	0.7.1-xmms2-compat07.patch
-"
+PATCH_URI="0.7.1-volume-control.patch"
 
 src_compile() {
 	lndirs

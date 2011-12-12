@@ -1,5 +1,4 @@
-Description: Do not assume that the volume control has a left channel (fixes
- muting of playback on launch).
+Description: Do not assume that the volume control has a left channel (fixes muting of playback on launch).
 Author: Benjamin Drung <bdrung@ubuntu.com>
 Bug: http://bugs.xmms2.xmms.se/view.php?id=1883
 Bug-Ubuntu: https://bug.launchpad.net/bugs/292822
